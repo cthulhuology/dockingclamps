@@ -22,7 +22,7 @@ Deploying a VM
 
 After you setup your management account, you will need to setup a VM image suitable for use with dockingclamps. The easiest way to do this is to take a base Ubuntu 13.04 image and run the following command as root:
 
-        \curl -L https://raw.github.com/cthulhuology/dockingclamps/bootstrap | DOCKINGSTATION=clamps.mydomain.com bash
+        \curl -L https://raw.github.com/cthulhuology/dockingclamps/master/bootstrap | DOCKINGSTATION=clamps.mydomain.com bash
 
 This will install the necessary kernel modules, lxc containers, docker, and a set of utilities which will enable dockingclamps to manage the node.   The DOCKINGSTATION hostname will be baked into your image so that any node that is spun up from this VM image will automatically announce and configure itself with the management node.  Once you have finished the process, the VM will be imaged and the management node will use it for future deployments. 
 
