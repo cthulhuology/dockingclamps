@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [[ $(whoami) != 'root' ]]; then
+	echo "$0 must be run as root"
+	exit
+fi
+
+start() {
+	CONTAINER=$(docker ps | grep cthulhuology/dockingclamps | awk '{ print  $1 }')
+	if [[ -z "$CONTAINER" ]]; then
+		docker pull cthulhuology/dockingclamps
+		docker run -i -d -t cthulhology/dockingclamps
+	fi
+}
+
+stop() {
+	CONTAINER=$(docker ps | grep cthulhuology/dockingclamps | awk '{ print  $1 }')
+	docker stop $CONTAINER
+	docker rm $CONTAINER
+}	
+
+status() {
+	CONTAINER=$(docker ps | grep cthulhuology/dockingclamps | awk '{ print  $1 }')
+	if [[ -z "$CONTAINER" ]]; then
+		echo "dockingbay is not running";
+		exit
+	fi
+	echo "dockingbay running in container $CONTAINER"	
+}
+
+usage() {
+	echo "Usage: $0 [start|stop|restart|status]"
+	exit;
+}
+
+
+case $1 in
+	start) start;;
+	stop) stop;;
+	status) status;;
+	restart) stop; start;;
+	*) usage;;
+esac
+
